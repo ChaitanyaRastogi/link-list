@@ -1,0 +1,137 @@
+#include<stdio.h>
+#include<malloc.h>
+#include<stdlib.h>
+typedef struct nodetype
+{
+	int data;
+	struct nodetype *link;
+	
+}node;
+node *temp,*ptr,*start=NULL;
+void create()
+{
+	int ch;
+	printf("Enter the choice:");
+	scanf("%d",&ch);
+	while(ch!=1)
+	{
+		temp=(node*)malloc(sizeof(node));
+		printf("\nEnter the data:");
+		scanf("%d",&temp->data);
+		temp->next=NULL;
+		 if(start==NULL)
+		 {
+		 	start=temp;
+		 	ptr=temp;
+		 }
+		 else
+		 {
+		 	ptr->next=temp;
+		 	ptr=ptr->next;
+		 }
+		 printf("Press any no. to continue:");
+		 scanf("%d",&ch);
+	}
+	
+}
+void insbeg()
+{
+	temp=(node*)malloc(sizeof(node));
+	printf("Enter the data to be inserted at begenning:");
+	scanf("%d",&temp->data);
+	temp->next=start;
+	start=temp;
+}
+void insend()
+{
+	temp=(node*)malloc(sizeof(node));
+	printf("Enter the data to be inserted at end:");
+	scanf("%d",&temp->data);
+	ptr=start;
+	while(ptr->next!=NULL)
+	 ptr=ptr->next;
+	ptr->next=temp;
+	temp->next=NULL; 
+}
+void inspos_bef()
+{   
+    int key; node *q;
+    printf("Enter the data of the node before which particular node is to be inserted:");
+    scanf("%d",&key);
+	temp=(node*)malloc(sizeof(node));
+	printf("Enter the data to be inserted before node:");
+	scanf("%d",&temp->data);
+	ptr=start;
+	while(ptr->next!=NULL&&ptr->data!=key)
+	{
+	  q=ptr;
+	  ptr=ptr->next;
+    }
+	if(ptr->data==key)
+	{
+		q->next=temp;
+		temp->next=ptr;
+	}  
+	else
+	printf("value %d not found.",key);
+}
+void inpos_aft()
+{
+	int key;
+	printf("Enter the data of the node after which particular node is to be inserted:");
+    scanf("%d",&key);
+	temp=(node*)malloc(sizeof(node));
+	printf("Enter the data to be inserted before node:");
+	scanf("%d",&temp->data);
+	ptr=start;
+	while(ptr->next!=NULL&&ptr->data!=key)
+	  ptr=ptr->next;
+	if(ptr->data==key)
+	 {
+	 	ptr->next=temp;
+	 	temp->next=ptr->next;
+	   }  
+	else
+	printf("value %d not found.",key);
+	
+}
+void display()
+{
+	ptr=start;
+	while(ptr!=NULL)
+	{
+		printf("%d\t",ptr->data);
+		ptr=ptr->next;
+	}
+}
+
+int main()
+{   int c;
+    while(1)
+{
+	
+    printf("\nSINGLE LINK LIST :\n1.Creation\n2.Insert_at_Beg\n3.Insert_at_End\n4.Insert_at_Pos_bef\n5.Insert_at_pos_aft\n6.Delete_at_Beg\n7.Delete_at_End\n7.Exit");
+	printf("Enter the operation you want to perform:");
+	scanf("%d",&c);
+	switch(c)
+	{
+	case 1:create();
+	       display();break;
+	case 2:insbeg();
+	       display();break;
+	case 3:insend();
+	       display();break;
+	case 4:inspos_bef();
+	       display();break;  
+	case 5:inspos_aft();
+	       display();break;
+	case 6:delbeg();
+	       display();break;
+	case 7:delend();
+	       display();break;	   	        
+	case 8:exit(0);
+	default:printf("invalid choice");
+    }
+}
+	return 0;
+}
